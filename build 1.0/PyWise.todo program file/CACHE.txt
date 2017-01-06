@@ -1,3 +1,0 @@
-0000000000 "Start Up Count"
-0000000000 "Error Count"
-0000000000 "Completed Task Count"
