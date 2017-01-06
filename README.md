@@ -17,8 +17,7 @@ This aplication allows you to quickly add, edit, sort, filter ... ect your todol
 
 ## Latest Update
 1. Fixed a few spelling mistakes
-2. fixed exit comand
-3. fixed some spelling mistakes
+2. Fixed exit comand
 
 ## Known Bugs
-1. the export comand does not work
+1. The export comand does not work
