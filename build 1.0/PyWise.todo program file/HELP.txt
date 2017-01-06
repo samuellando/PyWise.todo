@@ -1,0 +1,25 @@
+- exit		exit program
+
+- ba 		bulk add
+
+- bw		bulk work (Delete, prioritize)
+
+- a`text	add item
+
+- p`X Y		prioritize item X to Y
+
+- d`X		Mark item X as done
+
+- s`X Z		switch positions of items X and Z
+
+- f`Term	filter items by search term
+
+- fp`Y		filter items by priority Y
+
+- sp		Sort list by priority (sps to show the sort)
+
+-sd		Sort list by date (sds to show the sort)
+
+-pd		Prioritize by date
+
+-ex		export to text file on desktop
