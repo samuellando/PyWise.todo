@@ -1,2 +1,8 @@
 # PyWise.todo
-a custom hackable and simple use of a todo.txt file with python
+a custom hackable and simple use of a todo.txt file with python. (python 3.5)
+
+## Orgin
+With insparation form other todo.txt progarms. this python based application uses the future proof todo.txt style to todo list with many usefull features. 
+
+## Why use this?
+This aplication allows you to quickly add, edit, sort, filter ... ect your todolist quickly. as a collage student, this is what i use every day. 
