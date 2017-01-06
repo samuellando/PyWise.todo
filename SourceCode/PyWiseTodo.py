@@ -325,7 +325,7 @@ def listen(): #listen for a comand
 	global DevMode
 	Input = input("~")
 	if Input == "exit":
-		exit()
+		LOOP = 1
 	elif Input == "ba":
 		BulkAdd()
 	elif Input == "bw":
@@ -436,6 +436,9 @@ while True:			#MAIN loop
 			os.system("cls")
 			post()			#update screen
 			listen()		#wait for comand
+
+		break
+		
 	except:
 		ErrorCount = ErrorCount+1
 		UpCACHE(2, ErrorCount)
