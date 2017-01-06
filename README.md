@@ -6,3 +6,5 @@ With insparation form other todo.txt progarms. this python based application use
 
 ## Why use this?
 This aplication allows you to quickly add, edit, sort, filter ... ect your todolist quickly. as a collage student, this is what i use every day. 
+
+![alt tag](https://github.com/samuellando/PyWise.todo/blob/master/Capture.PNG)
