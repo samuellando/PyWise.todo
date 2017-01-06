@@ -1,6 +1,9 @@
 # PyWise.todo
 a custom hackable and simple use of a todo.txt file with python. (python 3.5) -- Version 1
 
+## Download
+[Absolute README link](https://github.com/samuellando/PyWise.todo/tree/master/Version/build%201.0)
+
 ## Orgin
 With insparation form other todo.txt progarms. this python based application uses the future proof todo.txt style to todo list with many usefull features. 
 
