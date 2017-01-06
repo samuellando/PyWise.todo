@@ -2,7 +2,6 @@
 a custom hackable and simple use of a todo.txt file with python. (python 3.5) -- Version 1
 
 ## Download
-[Download Version 1.0, windows 64 bit](https://drive.google.com/drive/folders/0B_rNg28pLcCvbW0zRUItS25pNlU?usp=sharing)
 [Download Version 1.0, windows 64 bit](https://drive.google.com/uc?export=download&id=0B_rNg28pLcCvbW0zRUItS25pNlU?)
 
 ## Orgin
