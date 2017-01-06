@@ -14,3 +14,11 @@ With insparation form other todo.txt progarms. this python based application use
 This aplication allows you to quickly add, edit, sort, filter ... ect your todolist quickly. as a collage student, this is what i use every day. 
 
 ![alt tag](https://github.com/samuellando/PyWise.todo/blob/master/Capture.PNG)
+
+## Latest Update
+1. Fixed a few spelling mistakes
+2. fixed exit comand
+3. fixed some spelling mistakes
+
+## Known Bugs
+1. the export comand does not work
