@@ -1,3 +1,6 @@
+
+*It is not recomended to edit the TodoTXT file manually as the program has a specific format for tasks
+
 Tasks you enter should be in the form:
 +XX @DD/MM/YY description.
 
