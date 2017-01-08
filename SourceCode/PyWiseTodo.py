@@ -1,7 +1,7 @@
-import time
-import os
-import subprocess
-import traceback
+from time import sleep, strftime
+from os import system, remove
+from subprocess import Popen
+from traceback import print_exc
 
 DevMode = 0 #set to 1 to get bug reports
 File = "TodoTXT.txt" #chage flie name as needed
@@ -26,7 +26,7 @@ def save(): #Update text file
 	global List
 	global PriList
 	global File
-	os.remove(File)
+	remove(File)
 	State = open(File, "a")
 	C = 0
 	for Item in List:
@@ -51,7 +51,7 @@ def loadPri(): #Split the loaded list into list of text and pri list
 def post(): #Post list to screen with colors
 	global List
 	global PriList
-	os.system("cls")
+	system("cls")
 	print(" ")
 	print("\t"+"\t"+"\033[1;37;40m "+"\t--Todo List--")
 	print(" ")
@@ -122,7 +122,7 @@ def switch(NumO,NumT): #witch position of two items in list
 def fliter(TEXT): #filter by a search term
 	global List
 	global PriList
-	os.system("cls")
+	system("cls")
 	print(" ")
 	print("\t"+"\t"+"\t--Filtered List--")
 	print(" ")
@@ -155,7 +155,7 @@ def fliter(TEXT): #filter by a search term
 def fliterpri(Num): #filter by a priority level
 	global List
 	global PriList
-	os.system("cls")
+	system("cls")
 	print(" ")
 	print("\t"+"\t"+"\t--Filtered List--")
 	print(" ")
@@ -189,7 +189,7 @@ def BulkAdd(): #open text flie to bulk add items
 	Info = open("BulkAdd.txt", "a")
 	Info.write("--- Write Tasks Line by Line below ---\n+XX @XX/XX/2017 TEXT")
 	Info.close()
-	p = subprocess.Popen(('notepad.exe', 'BulkAdd.txt'))
+	p = Popen(('notepad.exe', 'BulkAdd.txt'))
 	p.wait()
 	Info = open("BulkAdd.txt", "r+")
 	C = 0
@@ -200,17 +200,17 @@ def BulkAdd(): #open text flie to bulk add items
 			add(Line)
 		C = C+1
 	Info.close()
-	os.remove("BulkAdd.txt")
+	remove("BulkAdd.txt")
 
 def BulkWork(): #open text file to bulk edit items
 	global File
-	p = subprocess.Popen(('notepad.exe', File))
+	p = Popen(('notepad.exe', File))
 	p.wait()
 	load()
 
 def SortPri(S): #buble sort by priority
 	if S == 0:
-		os.system("cls")
+		system("cls")
 		print("Sorting...")
 	global PriList
 	Lenght = len(PriList)
@@ -224,7 +224,7 @@ def SortPri(S): #buble sort by priority
 			C = C+1
 			if S == 1:
 				post()
-				time.sleep(0.02)
+				sleep(0.02)
 		C = 1
 		Cur = 0
 
@@ -254,7 +254,7 @@ def SortDate(S): #buble sort by date
 		else:
 			DateList.append(0)
 	if S == 0:
-		os.system("cls")
+		system("cls")
 		print("Sorting...")
 	Lenght = len(List)
 	Cur = 0
@@ -270,7 +270,7 @@ def SortDate(S): #buble sort by date
 			C = C+1
 			if S == 1:
 				post()
-				time.sleep(0.02)
+				sleep(0.02)
 		C = 1
 		Cur = 0
 	List.reverse()
@@ -289,9 +289,9 @@ def PriByDate(): #prooritiz by date
 			DateList.append(Date)
 		else:
 			DateList.append(0)
-	TDay = int(time.strftime("%d"))
-	TMonth = int(time.strftime("%m"))
-	TYear = int(time.strftime("%y"))+2000
+	TDay = int(strftime("%d"))
+	TMonth = int(strftime("%m"))
+	TYear = int(strftime("%y"))+2000
 	TDate = (TDay*86164)+(TMonth*2592000)+(TYear*31536000)
 	C = 0
 	for Item in List:
@@ -318,7 +318,7 @@ def Export(): #export and move using a bat file
 		Ex.write("PRI: "+PriList[C]+"\t"+List[C]+"\n")
 		C = C+1
 	Ex.close()
-	os.system("start MoveList.bat")
+	system("start MoveList.bat")
 
 def listen(): #listen for a comand
 	global LOOP
@@ -343,13 +343,13 @@ def listen(): #listen for a comand
 	elif Input == "ex":
 		Export()
 	elif Input == "er" and DevMode == 1:		#DevMode only
-		os.system("start PyWiseTodo.py")
+		system("start PyWiseTodo.py")
 		exit()
 	elif Input == "rc" and DevMode == 1:		#DevMode only
 		ReCACHE()
 	elif Input[0] == "h" or Input[0] == "help":
 		HT = open("HELP.txt", "r")
-		os.system("cls")
+		system("cls")
 		for Line in HT:
 			Line = Line.replace("\n", "")
 			print(Line)
@@ -425,7 +425,7 @@ if StartUpCount == 1:			#first startup only
 	print("\nPress R and then ENTER to open the file, otherwise just press ENTER.")
 	print("\nHope you enjoy the program :)")
 	if input(":").upper() == "R":
-		os.system("start README.txt")
+		system("start README.txt")
 
 load()
 LOOP = 0			#keep inner loop going
@@ -433,16 +433,16 @@ while True:			#MAIN loop
 	try:
 		while LOOP == 0:	#inner loop
 			save()			#save after each comand
-			os.system("cls")
+			system("cls")
 			post()			#update screen
 			listen()		#wait for comand
 
 		break
-		
+
 	except:
 		ErrorCount = ErrorCount+1
 		UpCACHE(2, ErrorCount)
-		os.system("cls")
+		system("cls")
 		print("\033[1;31;40m ")
 		print("\t\t---------------------------------------")
 		print("\t\t EEEEE   RRRRR   RRRRR   OOOOO   RRRRR")
@@ -454,7 +454,7 @@ while True:			#MAIN loop
 		print("\033[1;32;40m please check your syntax 0n the input")
 		print("\033[1;31;40m ")
 		if DevMode == 1:
-			traceback.print_exc()
+			print_exc()
 			print("\033[1;37;40m ")
 			print("\033[1;37;40m ")
 			print("try er command for external reset")
