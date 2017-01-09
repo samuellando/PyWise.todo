@@ -1,9 +1,8 @@
-from time import sleep, strftime
-from os import system, remove
-from subprocess import Popen
+from PyWiseFuncs import AllFunctions as pw
+from os import system
 from traceback import print_exc
 
-DevMode = 0 #set to 1 to get bug reports
+DevMode = 1 #set to 1 to get bug reports
 File = "TodoTXT.txt" #chage flie name as needed
 List = []
 PriList = []
@@ -11,343 +10,51 @@ PriList = []
 StartUpCount = 0 	#Stored on line 1
 ErrorCount = 0 		#Stored on line 2
 TaskCount = 0		#Stored on line 3
-
-def load(): #Open text file and load items to list
-	global List
-	global File
-	List = []
-	State = open(File, "r+")
-	for Line in State:
-		Line = Line.replace("\n", "")
-		List.append(Line)
-	loadPri()
-
-def save(): #Update text file
-	global List
-	global PriList
-	global File
-	remove(File)
-	State = open(File, "a")
-	C = 0
-	for Item in List:
-		State.write(List[C]+"PRI"+PriList[C]+"\n")
-		C = C+1
-
-def loadPri(): #Split the loaded list into list of text and pri list
-	global PriList
-	global List
-	PriList = []
-	TempList = []
-	Lenght = len(List)
-	C = 0
-	while C < Lenght:
-		CUT = List[C].split("PRI")
-		TempList.append(CUT[0])
-		PriList.append(CUT[1])
-		C = C+1
-	List = []
-	List = TempList
-
-def post(): #Post list to screen with colors
-	global List
-	global PriList
-	system("cls")
-	print(" ")
-	print("\t"+"\t"+"\033[1;37;40m "+"\t--Todo List--")
-	print(" ")
-	C = 0
-	Max = len(List)
-	while C < Max:
-		Coef = str(C+1)
-		if PriList[C] == "1":
-			print("\t"+"\033[1;32;40m "+Coef+"\t"+ List[C])
-		elif PriList[C] == "2":
-			print("\t"+"\033[1;33;40m "+Coef+"\t"+ List[C])
-		elif PriList[C] == "3":
-			print("\t"+"\033[1;31;40m "+Coef+"\t"+ List[C])
-		else:
-			print("\t"+"\033[1;37;40m "+Coef+"\t"+List[C])
-		C = C+1
-	print("\033[1;37;40m "+" ")
-	if len(List) == 0:
-		print("\t"+"\033[1;35;40m "+"\tNothing To Do !!")
-		print("\033[1;37;40m "+" ")
-
-def add(Item): #add item to list
-	global List
-	global PriList
-	List.append(Item)
-	PriList.append("0")
-
-def pri(Num, NP): #chage pri of item in list
-	global PriList
-	Max = len(PriList)
-	C = int(Num)-1
-	if C >= Max or C < 0:
-		return
-	if int(NP) > 3 or int(NP) < 0:
-		return
-	PriList[C] = NP
-
-def done(Num): #remove item from list
-	global List
-	global PriList
-	global TaskCount
-	Max = len(List)
-	C = int(Num)-1
-	if C >= Max or C < 0:
-		return
-	del List[C]
-	del PriList[C]
-	TaskCount = TaskCount+1
-	UpCACHE(3, TaskCount)
-
-def switch(NumO,NumT): #witch position of two items in list
-	global List
-	global PriList
-	CO = int(NumO)-1
-	CT = int(NumT)-1
-	Max = len(List)
-	if CO >= Max or CT >= Max or CO < 0 or CT < 0:
-		return
-	TempVal = ""
-	TempVal = List[CO]
-	List[CO] = List[CT]
-	List[CT] = TempVal
-	TempVal = "0"
-	TempVal = PriList[CO]
-	PriList[CO] = PriList[CT]
-	PriList[CT] = TempVal
-
-def fliter(TEXT): #filter by a search term
-	global List
-	global PriList
-	system("cls")
-	print(" ")
-	print("\t"+"\t"+"\t--Filtered List--")
-	print(" ")
-	FlitList = []
-	FLP = []
-	C = 0
-	for Item in List:
-		if TEXT in Item:
-			FlitList.append(Item)
-			FLP.append(PriList[C])
-		C = C+1
-	C = 0
-	Max = len(FlitList)
-	while C < Max:
-		Coef = str(C+1)
-		if FLP[C] == "1":
-			print("\t"+"\033[1;32;40m "+Coef+"\t"+ FlitList[C])
-		elif FLP[C] == "2":
-			print("\t"+"\033[1;33;40m "+Coef+"\t"+ FlitList[C])
-		elif FLP[C] == "3":
-			print("\t"+"\033[1;31;40m "+Coef+"\t"+ FlitList[C])
-		else:
-			print("\t"+"\033[1;37;40m "+Coef+"\t\asdfgsd"+FlitList[C])
-		C = C+1
-	print("\033[1;37;40m "+" ")
-	print(" ")
-	print("Press any key to continue")
-	input("")
-
-def fliterpri(Num): #filter by a priority level
-	global List
-	global PriList
-	system("cls")
-	print(" ")
-	print("\t"+"\t"+"\t--Filtered List--")
-	print(" ")
-	FlitList = []
-	FLP = []
-	C = 0
-	for Item in PriList:
-		if Num in Item:
-			FlitList.append(List[C])
-			FLP.append(Item)
-		C = C+1
-	C = 0
-	Max = len(FlitList)
-	while C < Max:
-		Coef = str(C+1)
-		if FLP[C] == "1":
-			print("\t"+"\033[1;32;40m "+Coef+"\t"+ FlitList[C])
-		elif FLP[C] == "2":
-			print("\t"+"\033[1;33;40m "+Coef+"\t"+ FlitList[C])
-		elif FLP[C] == "3":
-			print("\t"+"\033[1;31;40m "+Coef+"\t"+ FlitList[C])
-		else:
-			print("\t"+"\033[1;37;40m "+Coef+"\t\asdfgsd"+FlitList[C])
-		C = C+1
-	print("\033[1;37;40m "+" ")
-	print(" ")
-	print("Press any key to continue")
-	input("")
-
-def BulkAdd(): #open text flie to bulk add items
-	Info = open("BulkAdd.txt", "a")
-	Info.write("--- Write Tasks Line by Line below ---\n+XX @XX/XX/2017 TEXT")
-	Info.close()
-	p = Popen(('notepad.exe', 'BulkAdd.txt'))
-	p.wait()
-	Info = open("BulkAdd.txt", "r+")
-	C = 0
-	for Line in Info:
-		if "\n" in Line:
-			Line = Line.replace("\n", "")
-		if C > 0:
-			add(Line)
-		C = C+1
-	Info.close()
-	remove("BulkAdd.txt")
-
-def BulkWork(): #open text file to bulk edit items
-	global File
-	p = Popen(('notepad.exe', File))
-	p.wait()
-	load()
-
-def SortPri(S): #buble sort by priority
-	if S == 0:
-		system("cls")
-		print("Sorting...")
-	global PriList
-	Lenght = len(PriList)
-	Cur = 0
-	C = 1
-	while OrderCheck(PriList):
-		while C < Lenght:
-			if int(PriList[Cur]) <= int(PriList[(Cur+1)]):
-				switch((Cur+1), (Cur+2))
-			Cur = Cur+1
-			C = C+1
-			if S == 1:
-				post()
-				sleep(0.02)
-		C = 1
-		Cur = 0
-
-def OrderCheck(L): #check order of items in list
-	Lenght = len(L)
-	Cur = 0
-	C = 1
-	while C < Lenght:
-		if int(L[Cur]) >= int(L[(Cur+1)]):
-			Cur = Cur+1
-		else:
-			return True
-		C = C+1
-	return False
-
-def SortDate(S): #buble sort by date
-	global List
-	global PriList
-	DateList = []
-	for Item in List:
-		if "@" in Item:
-			day = Item[(Item.index("@")+1)]+Item[(Item.index("@")+2)]
-			month = Item[(Item.index("@")+4)]+Item[(Item.index("@")+5)]
-			year = Item[(Item.index("@")+7)]+Item[(Item.index("@")+8)]+Item[(Item.index("@")+9)]+Item[(Item.index("@")+10)]
-			Date = (int(day)*86164)+(int(month)*2592000)+(int(year)*31563000)
-			DateList.append(Date)
-		else:
-			DateList.append(0)
-	if S == 0:
-		system("cls")
-		print("Sorting...")
-	Lenght = len(List)
-	Cur = 0
-	C = 1
-	while OrderCheck(DateList):
-		while C < Lenght:
-			if int(DateList[Cur]) <= int(DateList[(Cur+1)]):
-				switch((Cur+1), (Cur+2))
-				temp = DateList[Cur]
-				DateList[Cur] = DateList[(Cur+1)]
-				DateList[(Cur+1)] = temp
-			Cur = Cur+1
-			C = C+1
-			if S == 1:
-				post()
-				sleep(0.02)
-		C = 1
-		Cur = 0
-	List.reverse()
-	PriList.reverse()
-
-def PriByDate(): #prooritiz by date
-	global List
-	global PriList
-	DateList = []
-	for Item in List:
-		if "@" in Item:
-			day = Item[(Item.index("@")+1)]+Item[(Item.index("@")+2)]
-			month = Item[(Item.index("@")+4)]+Item[(Item.index("@")+5)]
-			year = Item[(Item.index("@")+7)]+Item[(Item.index("@")+8)]+Item[(Item.index("@")+9)]+Item[(Item.index("@")+10)]
-			Date = (int(day)*86164)+(int(month)*2592000)+(int(year)*31536000)
-			DateList.append(Date)
-		else:
-			DateList.append(0)
-	TDay = int(strftime("%d"))
-	TMonth = int(strftime("%m"))
-	TYear = int(strftime("%y"))+2000
-	TDate = (TDay*86164)+(TMonth*2592000)+(TYear*31536000)
-	C = 0
-	for Item in List:
-		if DateList[C] <= TDate:
-			PriList[C] = "3"
-		elif DateList[C] < (TDate+86400):
-			PriList[C] = "3"
-		elif DateList[C] <= (TDate+172800):
-			PriList[C] = "2"
-		elif DateList[C] <= (TDate+604800):
-			PriList[C] = "1"
-		else:
-			PriList[C] = "0"
-		C = C+1
-
-def Export(): #export and move using a bat file
-	global List
-	global PriList
-	Ex = open("Todolist.txt", "w")
-	C = 0
-	Ex.write("\t\t -- Todo -- \n")
-	Ex.write("\n")
-	for Item in List:
-		Ex.write("PRI: "+PriList[C]+"\t"+List[C]+"\n")
-		C = C+1
-	Ex.close()
-	system("start MoveList.bat")
+PriOneCode = "32"
+PriTwoCode = "33"
+PriThreeCode = "31"
+PriZeroCode = "37"
+ExportFile = "TodoList.txt"
+CACHEFile = "CACHE.txt"
 
 def listen(): #listen for a comand
 	global LOOP
 	global DevMode
+	global PriList
+	global List
+	global File
+	global PriOneCode
+	global PriTwoCode
+	global PriThreeCode
+	global PriZeroCode
+	global ExportFile
+	global CACHEFile
+	global TaskCount
 	Input = input("~")
 	if Input == "exit":
 		LOOP = 1
 	elif Input == "ba":
-		BulkAdd()
+		List, PriList = pw.BulkAdd(List, PriList)
 	elif Input == "bw":
-		BulkWork()
+		List, PriList = pw.BulkWork(File)
 	elif Input == "sp":
-		SortPri(0)
+		List, PriList = pw.SortPri(List, PriList, PriOneCode, PriTwoCode, PriThreeCode, PriZeroCode, 0)
 	elif Input == "sps":
-		SortPri(1)
+		List, PriList = pw.SortPri(List, PriList, PriOneCode, PriTwoCode, PriThreeCode, PriZeroCode, 1)
 	elif Input == "sd":
-		SortDate(0)
+		List, PriList = pw.SortDate(List, PriList, PriOneCode, PriTwoCode, PriThreeCode, PriZeroCode, 0)
 	elif Input == "sds":
-		SortDate(1)
+		List, PriList = pw.SortDate(List, PriList, PriOneCode, PriTwoCode, PriThreeCode, PriZeroCode, 1)
 	elif Input == "pd":
-		PriByDate()
+		List, PriList = pw.PriByDate(List, PriList)
 	elif Input == "ex":
-		Export()
+		pw.Export(List, PriList, ExportFile)
 	elif Input == "er" and DevMode == 1:		#DevMode only
 		system("start PyWiseTodo.py")
 		exit()
 	elif Input == "rc" and DevMode == 1:		#DevMode only
-		ReCACHE()
-	elif Input[0] == "h" or Input[0] == "help":
+		pw.ReCACHE(StartUpCount, ErrorCount, TaskCount, CACHEFile)
+	elif Input == "h" or Input == "help":
 		HT = open("HELP.txt", "r")
 		system("cls")
 		for Line in HT:
@@ -361,63 +68,29 @@ def listen(): #listen for a comand
 		if len(Input) > 2:
 			return
 		if Input[0] == "a" or Input[0] == "add":
-			add(Input[1])
+			List, PriList = pw.add(Input[1], List, PriList)
 		elif Input[0] == "p" or Input[0] == "pri":
 			Vals = Input[1].split(" ")
-			pri(Vals[0], Vals[1])
+			PriList = pw.pri(Vals[0], Vals[1], PriList)
 		elif Input[0] == "d" or Input[0] == "done":
-			done(Input[1])
+			List, PriList = pw.done(Input[1], List, PriList)
+			TaskCount = TaskCount+1
+			pw.UpCACHE(3, TaskCount, CACHEFile)
 		elif Input[0] == "s" or Input[0] == "switch":
 			Vals = Input[1].split(" ")
-			switch(Vals[0], Vals[1])
+			List, PriList = pw.switch(Vals[0], Vals[1], List, PriList)
 		elif Input[0] == "f" or Input[0] == "filter":
-			fliter(Input[1])
+			pw.FList, FPriList = pw.fliter(Input[1], List, PriList)
+			pw.post(FList, FPriList, PriOneCode, PriTwoCode, PriThreeCode, PriZeroCode)
+			input("Press enter to return")
 		elif Input[0] == "fp" or Input[0] == "filterpri":
-			fliterpri(Input[1])					#special comands
+			pw.FList, FPriList = fliterpri(Input[1], List, PriList)
+			pw.post(FList, FPriList, PriOneCode, PriTwoCode, PriThreeCode, PriZeroCode)
+			input("Press enter to return")					#special comands
 
-def UpCACHE(LineNum, Cvar):
-	LineNum = LineNum-1
-	with open("CACHE.txt", 'r+') as UP:
-		LineLenghts = []
-		for Line in UP:
-			LineLenghts.append((len(Line)+1))
-		C = 0
-		Cur = 0
-		while C < LineNum:
-			Cur = Cur+LineLenghts[C]
-			C = C+1
-		UP.seek(Cur)
-		PrintLen = len(str(Cvar))
-		Offset = 10 - PrintLen
-		while Offset > 0:
-			UP.write("0")
-			Offset = Offset-1
-		UP.write(str(Cvar))
-
-def ReCACHE():
-	global StartUpCount
-	global ErrorCount
-	global TaskCount
-	StartUpCount = 0
-	ErrorCount = 0
-	TaskCount = 0
-	UpCACHE(1, StartUpCount)
-	UpCACHE(2, ErrorCount)
-	UpCACHE(3, TaskCount)
-
-# START of program - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-with open("CACHE.txt", "r+") as CACHE:
-	CACHEList = []
-	for Line in CACHE:
-		CACHEList.append(Line[0:10])
-	StartUpCount = int(CACHEList[0])
-	ErrorCount = int(CACHEList[1])
-	TaskCount = int(CACHEList[2])
-	CACHEList = []#cache load
-
+StartUpCount, ErrorCount, TaskCount = pw.LoadCACHE(CACHEFile)
 StartUpCount = StartUpCount+1	#Increment StartUpCount
-UpCACHE(1, StartUpCount)		#Update Cache
+pw.UpCACHE(1, StartUpCount, CACHEFile)		#Update Cache
 
 if StartUpCount == 1:			#first startup only
 	print("\nWELCOME to todo list it is your frst time using the program, so")
@@ -427,21 +100,22 @@ if StartUpCount == 1:			#first startup only
 	if input(":").upper() == "R":
 		system("start README.txt")
 
-load()
+List, PriList = pw.load(File)
+
 LOOP = 0			#keep inner loop going
 while True:			#MAIN loop
 	try:
 		while LOOP == 0:	#inner loop
-			save()			#save after each comand
+			pw.save(File, List, PriList)			#save after each comand
 			system("cls")
-			post()			#update screen
+			pw.post(List, PriList, PriOneCode, PriTwoCode, PriThreeCode, PriZeroCode)			#update screen
 			listen()		#wait for comand
 
 		break
 
 	except:
 		ErrorCount = ErrorCount+1
-		UpCACHE(2, ErrorCount)
+		pw.UpCACHE(2, ErrorCount, CACHEFile)
 		system("cls")
 		print("\033[1;31;40m ")
 		print("\t\t---------------------------------------")
