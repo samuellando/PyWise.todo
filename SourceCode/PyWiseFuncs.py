@@ -246,6 +246,7 @@ class AllFunctions():
 			Ex.write("PRI: "+PList[C]+"\t"+ToList[C]+"\n")
 			C = C+1
 		Ex.close()
+		system("start MoveList.bat")
 
 	def UpCACHE(LineNum, Cvar, ToFile):
 		LineNum = LineNum-1
