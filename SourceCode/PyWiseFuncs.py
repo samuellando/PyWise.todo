@@ -312,23 +312,23 @@ class AllFunctions():
 				if C > 0:
 					A = 0
 					C = C-1
-				elif Ent == b'M' and A == 1:
-					if C < len(text):
-						A = 0
-						C = C+1
-				elif Ent == b'S' and A == 1:
-					if C < len(text):
-						A = 0
-						text = text[:C]+text[(C+1):]
-				elif A == 1:
+			elif Ent == b'M' and A == 1:
+				if C < len(text):
 					A = 0
-					pass
-				else:
-					Ent = str(Ent)
-					Ent = Ent[2:]
-					Ent = Ent[:1]
-					text = text[:C]+Ent+text[C:]
 					C = C+1
+			elif Ent == b'S' and A == 1:
+				if C < len(text):
+					A = 0
+					text = text[:C]+text[(C+1):]
+			elif A == 1:
+				A = 0
+				pass
+			else:
+				Ent = str(Ent)
+				Ent = Ent[2:]
+				Ent = Ent[:1]
+				text = text[:C]+Ent+text[C:]
+				C = C+1
 
 	def template():
 		system("cls")
