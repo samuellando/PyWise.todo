@@ -1,7 +1,9 @@
 # PyWise.todo
-a custom, hackable and simple use of a todo.txt file with python. (python 3.5) -- Version 1
+a custom, hackable and simple use of a todo.txt file with python. (python 3.5) -- Version 2
 
 ## Download
+
+[Download Version 2.00, windows 64 bit](http://clktr4ck.com/9v2p)
 
 [Download Version 1.03, windows 64 bit](http://34.gs/jb3z)
 
@@ -20,10 +22,11 @@ This aplication allows you to quickly add, edit, sort, filter ... ect your todol
 ![alt tag](https://github.com/samuellando/PyWise.todo/blob/master/Capture.PNG)
 
 ## Recent Changes
-1. Fixed a few spelling mistakes
-2. Fixed exit comand
-3. The export comand was fixed
-4. got rid of useless dependencies
+1. got rid of useless dependencies
+2. Total code redo
+3. Added edit comand
+4. Added templates
+5. Added priority color picker
 
 ## Known bugs
 - please feel free to report any found bugs in the issues tab.
