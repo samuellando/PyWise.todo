@@ -3,6 +3,8 @@ a custom, hackable and simple use of a todo.txt file with python. (python 3.5) -
 
 ## Download
 
+[Download Version 2.01, windows 64 bit](http://clktr4ck.com/io6y)
+
 [Download Version 2.00, windows 64 bit](http://clktr4ck.com/e6r2)
 
 [Download Version 1.03, windows 64 bit](http://34.gs/jb3z)
@@ -27,6 +29,7 @@ This aplication allows you to quickly add, edit, sort, filter ... ect your todol
 3. Added edit comand
 4. Added templates
 5. Added priority color picker
+6. fixed edit mode
 
 ## Known bugs
 - please feel free to report any found bugs in the issues tab.
