@@ -3,7 +3,7 @@ a custom, hackable and simple use of a todo.txt file with python. (python 3.5) -
 
 ## Download
 
-[Download Version 2.00, windows 64 bit](http://clktr4ck.com/9v2p)
+[Download Version 2.00, windows 64 bit](http://clktr4ck.com/e6r2)
 
 [Download Version 1.03, windows 64 bit](http://34.gs/jb3z)
 
