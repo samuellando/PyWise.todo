@@ -2,6 +2,7 @@ from time import sleep, strftime
 from os import system, remove
 from subprocess import Popen
 from traceback import print_exc
+from msvcrt import getch
 
 class AllFunctions():
 	def load(FileName): #Open text file and return todo list and pri list
@@ -271,9 +272,9 @@ class AllFunctions():
 		StartUpCount = 0
 		ErrorCount = 0
 		TaskCount = 0
-		UpCACHE(1, StartUpCount, ToFile)
-		UpCACHE(2, ErrorCount, ToFile)
-		UpCACHE(3, TaskCount, ToFile)
+		AllFunctions.UpCACHE(1, StartUpCount, ToFile)
+		AllFunctions.UpCACHE(2, ErrorCount, ToFile)
+		AllFunctions.UpCACHE(3, TaskCount, ToFile)
 
 	def LoadCACHE(ToFile):
 		with open(ToFile, "r+") as CACHE:
@@ -283,5 +284,154 @@ class AllFunctions():
 			StartUpCount = int(CACHEList[0])
 			ErrorCount = int(CACHEList[1])
 			TaskCount = int(CACHEList[2])
+			PO = CACHEList[3]
+			PTW = CACHEList[4]
+			PTH = CACHEList[5]
+			PZ = CACHEList[6]
 			CACHEList = []
-			return(StartUpCount, ErrorCount, TaskCount)
+			return(StartUpCount, ErrorCount, TaskCount, PO, PTW, PTH, PZ)
+
+	def edit(text):
+		C = len(text)
+		A = 0
+		while True:
+			system("cls")
+			print(text[:C]+"|"+text[C:])
+			Ent = getch()
+			if Ent == b'\x08':
+				if C > 0:
+					C = C-1
+					text = text[:C]+text[(C+1):]
+			elif Ent == b'\r':
+				system("cls")
+				return(text)
+			elif Ent == b'\xe0':
+				A = 1
+				print(A)
+			elif Ent == b'K' and A == 1:
+				if C > 0:
+					A = 0
+					C = C-1
+				elif Ent == b'M' and A == 1:
+					if C < len(text):
+						A = 0
+						C = C+1
+				elif Ent == b'S' and A == 1:
+					if C < len(text):
+						A = 0
+						text = text[:C]+text[(C+1):]
+				elif A == 1:
+					A = 0
+					pass
+				else:
+					Ent = str(Ent)
+					Ent = Ent[2:]
+					Ent = Ent[:1]
+					text = text[:C]+Ent+text[C:]
+					C = C+1
+
+	def template():
+		system("cls")
+		print(" ")
+		print("Templates Menu")
+		print(" ")
+		print("T - Open template file")
+		print("S - switch back to TodoTXT")
+		print(" ")
+		Input = input("Choose an option: ")
+		if Input == "T" or Input == "t":
+			FileName = input("Enter template file name: ")
+			if ".txt" in FileName:
+				pass
+			else:
+				FileName = FileName+".txt"
+			FileCreate = open(FileName, "a")
+			FileCreate.close()
+			return(FileName)
+		elif Input == "S" or Input == "s":
+			return("TodoTXT.txt")
+
+	def color(ToFile, Pone, Ptwo, Pthree, Pzero):
+		system("cls")
+		print(" ")
+		print("chage color for priority 0, 1, 2, or 3 ?")
+		print(" ")
+		Ent = input(":")
+		if Ent == "0":
+			P = 0
+		elif Ent == "1":
+			P = 1
+		elif Ent == "2":
+			P = 2
+		elif Ent == "3":
+			P = 3
+		else:
+			return
+		C = 0
+		A = 0
+		while True:
+			system("cls")
+			print(" ")
+			print("\033[1;37;40m Pick a color, use the up down arrow keys")
+			print(" ")
+			if C == 0:
+				print("\033[1;37;40m White")
+			elif C == 1:
+				print("\033[1;36;40m Cyan")
+			elif C == 2:
+				print("\033[1;35;40m Purple")
+			elif C == 3:
+				print("\033[1;34;40m Blue")
+			elif C == 4:
+				print("\033[1;33;40m Yellow")
+			elif C == 5:
+				print("\033[1;32;40m Green")
+			elif C == 6:
+				print("\033[1;31;40m Red")
+			Ent = getch()
+			if Ent == b'\r':
+				system("cls")
+				if C == 0:
+					Col = 37
+				elif C == 1:
+					Col = 36
+				elif C == 2:
+					Col = 35
+				elif C == 3:
+					Col = 34
+				elif C == 4:
+					Col = 33
+				elif C == 5:
+					Col = 32
+				elif C == 6:
+					Col = 31
+				if P == 0:
+					AllFunctions.UpCACHE(7, Col, ToFile)
+					return(Pone, Ptwo, Pthree, str(Col))
+				elif P == 1:
+					AllFunctions.UpCACHE(4, Col, ToFile)
+					return(str(Col), Ptwo, Pthree, Pzero)
+				elif P == 2:
+					AllFunctions.UpCACHE(5, Col, ToFile)
+					return(Pone, str(Col), Pthree, Pzero)
+				elif P == 3:
+					AllFunctions.UpCACHE(6, Col, ToFile)
+					return(Pone, Ptwo, str(Col), Pzero)
+			elif Ent == b'\xe0':
+				A = 1
+				print(A)
+			elif Ent == b'P' and A == 1:
+				A = 0
+				if C > 0:
+					C = C-1
+				else:
+					C = 6
+			elif Ent == b'H' and A == 1:
+				A = 0
+				if C < 6:
+					C = C+1
+				else:
+					C = 0
+			else:
+				A = 0
+				pass

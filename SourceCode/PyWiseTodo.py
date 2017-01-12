@@ -1,8 +1,9 @@
 from PyWiseFuncs import AllFunctions as pw
 from os import system
 from traceback import print_exc
+from time import sleep
 
-DevMode = 1 #set to 1 to get bug reports
+DevMode = 0 #set to 1 to get bug reports
 File = "TodoTXT.txt" #chage flie name as needed
 List = []
 PriList = []
@@ -49,6 +50,11 @@ def listen(): #listen for a comand
 		List, PriList = pw.PriByDate(List, PriList)
 	elif Input == "ex":
 		pw.Export(List, PriList, ExportFile)
+	elif Input == "te":
+		File = pw.template()
+		List, PriList = pw.load(File)
+	elif Input == "colors":
+		PriOneCode, PriTwoCode, PriThreeCode, PriZeroCode = pw.color(CACHEFile, PriOneCode, PriTwoCode, PriThreeCode, PriZeroCode)
 	elif Input == "er" and DevMode == 1:		#DevMode only
 		system("start PyWiseTodo.py")
 		exit()
@@ -59,6 +65,7 @@ def listen(): #listen for a comand
 		system("cls")
 		for Line in HT:
 			Line = Line.replace("\n", "")
+			sleep(0.05)
 			print(Line)
 		print(" ")
 		print("Press any key to continue")
@@ -87,8 +94,30 @@ def listen(): #listen for a comand
 			pw.FList, FPriList = fliterpri(Input[1], List, PriList)
 			pw.post(FList, FPriList, PriOneCode, PriTwoCode, PriThreeCode, PriZeroCode)
 			input("Press enter to return")					#special comands
+		elif Input[0] == "ed" or Input[0] == "edit":
+			I = int(Input[1])
+			I = I-1
+			if I > len(List)-1 or I < 0:
+				pass
+			else:
+				List[I] = pw.edit(List[I])
+		elif Input[0] == "load":
+			if ".txt" in Input[1]:
+				print(" ")
+			else:
+				Input[1] = Input[1]+".txt"
+				TList, TPriList = pw.load(Input[1])
+				C = 0
+				for Item in TList:
+					List.append(TList[C])
+					PriList.append(TPriList[C])
+					C = C+1
 
-StartUpCount, ErrorCount, TaskCount = pw.LoadCACHE(CACHEFile)
+StartUpCount, ErrorCount, TaskCount, PriOneCode, PriTwoCode, PriThreeCode, PriZeroCode = pw.LoadCACHE(CACHEFile)
+PriOneCode = PriOneCode[8:]
+PriTwoCode = PriTwoCode[8:]
+PriThreeCode = PriThreeCode[8:]
+PriZeroCode = PriZeroCode[8:]
 StartUpCount = StartUpCount+1	#Increment StartUpCount
 pw.UpCACHE(1, StartUpCount, CACHEFile)		#Update Cache
 
@@ -109,8 +138,10 @@ while True:			#MAIN loop
 			pw.save(File, List, PriList)			#save after each comand
 			system("cls")
 			pw.post(List, PriList, PriOneCode, PriTwoCode, PriThreeCode, PriZeroCode)			#update screen
+			if File != "TodoTXT.txt":
+				print("editing template:"+File)
+				print(" ")
 			listen()		#wait for comand
-
 		break
 
 	except:
@@ -133,7 +164,7 @@ while True:			#MAIN loop
 			print("\033[1;37;40m ")
 			print("try er command for external reset")
 		else:
-			print("to enter DevMode see line 6 of todo.py code")
+			print("to enter DevMode see line 5 of PyWiseTodo.py code")
 		print("\033[1;37;40m ")
 		print("If this presists, try closeing and reopening the program\n")
 		print("press enter to do an internal reset")
