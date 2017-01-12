@@ -1,0 +1,7 @@
+0000000000 "Start Up Count"
+0000000000 "Error Count"
+0000000000 "Completed Task Count"
+0000000032 "Pri One Color"
+0000000033 "Pri Two Color"
+0000000031 "Pri Three Color"
+0000000037 "Pri Zero Color"
