@@ -3,7 +3,7 @@ from os import system
 from traceback import print_exc
 from time import sleep
 
-DevMode = 0 #set to 1 to get bug reports
+DevMode = 1 #set to 1 to get bug reports
 File = "TodoTXT.txt" #chage flie name as needed
 List = []
 PriList = []
@@ -87,11 +87,11 @@ def listen(): #listen for a comand
 			Vals = Input[1].split(" ")
 			List, PriList = pw.switch(Vals[0], Vals[1], List, PriList)
 		elif Input[0] == "f" or Input[0] == "filter":
-			pw.FList, FPriList = pw.fliter(Input[1], List, PriList)
+			FList, FPriList = pw.fliter(Input[1], List, PriList)
 			pw.post(FList, FPriList, PriOneCode, PriTwoCode, PriThreeCode, PriZeroCode)
 			input("Press enter to return")
 		elif Input[0] == "fp" or Input[0] == "filterpri":
-			pw.FList, FPriList = fliterpri(Input[1], List, PriList)
+			FList, FPriList = pw.fliterpri(Input[1], List, PriList)
 			pw.post(FList, FPriList, PriOneCode, PriTwoCode, PriThreeCode, PriZeroCode)
 			input("Press enter to return")					#special comands
 		elif Input[0] == "ed" or Input[0] == "edit":
