@@ -1,6 +1,23 @@
 # PyWise.todo
 a custom, hackable and simple use of a todo.txt file with python. (python 3.5) -- Version 2
 
+## Functionality
+- bulk add items to todolist
+- manually edit itmes in todo.txt
+- add items to todolist
+- prioritize items in todolist
+- crossoff items on todolsit
+- swap items on todolist
+- filter by todolist searchterm
+- filter todolist by priority level
+- edit item in todolist
+- save, edit and load templates
+- Sort todolist by priority
+- Sort todolist by date
+- Prioritize items by date by date
+- export to text file copy of todolist to desktop
+- customize priority colors
+
 ## Download
 
 [Download Version 2.01, windows 64 bit](http://clktr4ck.com/io6y)
