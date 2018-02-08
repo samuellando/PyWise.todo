@@ -1,21 +1,21 @@
 # PyWise.todo
-a custom, hackable and simple use of a todo.txt file with python. (python 3.5) -- Version 2
+A custom, hackable and simple use of a todo.txt file with python. (python 3.5)
 
 ## Functionality
-- bulk add items to todolist
-- manually edit itmes in todo.txt
-- add items to todolist
-- prioritize items in todolist
-- crossoff items on todolsit
-- swap items on todolist
-- filter by todolist searchterm
-- filter todolist by priority level
-- edit item in todolist
+- bulk add items to todo list
+- manually edit items in todo.txt
+- add items to todo list
+- prioritize items in todo list
+- cross off items on todo list
+- swap items on todo list
+- filter by todo list search term
+- filter todo list by priority level
+- edit item in todo list
 - save, edit and load templates
-- Sort todolist by priority
-- Sort todolist by date
+- Sort todo list by priority
+- Sort todo list by date
 - Prioritize items by date by date
-- export to text file copy of todolist to desktop
+- export to text file copy of todo list to desktop
 - customize priority colors
 
 ## Download
@@ -32,21 +32,5 @@ a custom, hackable and simple use of a todo.txt file with python. (python 3.5) -
 
 [Download Version 1.00, windows 64 bit](https://www.dropbox.com/sh/jgequag905nqj5b/AADKew73f3nw6_TKhTv50R8sa?dl=1)
 
-## Orgin
-With insparation form other todo.txt progarms. this python based application uses the future proof todo.txt style to todo list with many usefull features. 
-
-## Why use this?
-This aplication allows you to quickly add, edit, sort, filter ... ect your todolists. with new templates features, this program is comparable to the top todolist programs out there, all with a Console style interface. 
-
-![alt tag](https://github.com/samuellando/PyWise.todo/blob/master/Capture.PNG)
-
-## Recent Changes
-1. got rid of useless dependencies
-2. Total code redo
-3. Added edit comand
-4. Added templates
-5. Added priority color picker
-6. fixed edit mode
-
-## Known bugs
-- please feel free to report any found bugs in the issues tab.
+## Origin
+With inspiration from other todo.txt programs. this python based application uses the future-proof todo.txt style to todo list with many useful features. 
